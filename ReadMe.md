@@ -1,0 +1,11 @@
+# 结构目录
+- api：
+- backup：备份、还原、初始化
+- data：测试数据
+- lib：第三方工具
+- logs：日志
+- reports：报告
+- scripts：脚本文件
+- config.py：配置文件
+- execute.py
+- utils.py
