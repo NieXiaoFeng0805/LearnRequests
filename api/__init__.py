@@ -6,3 +6,7 @@
 文件说明：
 
 """
+# 初始化日志配置
+from utils import init_logging
+
+init_logging()  # 初始化日志配置
