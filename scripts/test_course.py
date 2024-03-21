@@ -4,9 +4,14 @@ import config
 from api.course_api import CourseAPI
 import logging
 from jsonpath import jsonpath
+from utils import get_login_token
 
 
 class TestCourse(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        get_login_token("15321919666", "123456")
+
     def setUp(self) -> None:
         self.course_api = CourseAPI()
 

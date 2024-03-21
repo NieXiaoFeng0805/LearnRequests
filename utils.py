@@ -11,6 +11,8 @@ import logging
 from logging import handlers
 import os
 
+import config
+
 
 def init_logging():
     '''
@@ -57,3 +59,25 @@ def read_json_data(file_name):
             result_list.append(tuple(case_data.values()))  # 转换成元组数据是 parameterized 所需的
 
         return result_list
+
+
+def get_login_token(phone, password):
+    '''
+    自动设置令牌
+    :param phone:
+    :param password:
+    :return:
+    '''
+    from api.login_api import Login
+    import config
+    login_api = Login()
+    response = login_api.login(phone, password)
+    # print(response.json())
+    # print(response.cookies)
+    # 修改BASE_HEADERS字典
+    config.BASE_HEADERS['Authorization'] = response.json().get("content").get("access_token")
+    # print(response.cookies.items()) #打印所有cookie的键值对,将数据存放在元组中
+    jsessionid_key = response.cookies.items()[1][0]
+    jsessionid_value = response.cookies.items()[1][1]
+    cookie_values = f"{jsessionid_key}={jsessionid_value}"
+    config.BASE_HEADERS['Cookie'] = cookie_values

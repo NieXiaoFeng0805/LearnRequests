@@ -12,7 +12,7 @@ import time
 
 from lib import HTMLTestRunner_PY3
 from scripts.test_login import TestLogin_ByAutoTest
-from scripts.test_course_ByManualTest import TestCourse
+from scripts.test_course import TestCourse
 
 # 创建测试套件
 suite = unittest.TestSuite()
