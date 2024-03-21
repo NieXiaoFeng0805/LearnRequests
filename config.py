@@ -8,7 +8,7 @@
 
 import os.path
 
-BASE_LaGouEDU_URL = "http://192.168.80.106"
+BASE_LaGouEDU_URL = "http://192.168.80.106:8080"
 BASE_LaGouShop_URL = "http://192.168.85.139"
 BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 BASE_HEADERS = {
