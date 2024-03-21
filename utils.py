@@ -8,8 +8,10 @@
 """
 import json
 import logging
+import sys
 from logging import handlers
 import os
+from lib import HTMLTestRunner_PY3
 
 import config
 
@@ -81,3 +83,38 @@ def get_login_token(phone, password):
     jsessionid_value = response.cookies.items()[1][1]
     cookie_values = f"{jsessionid_key}={jsessionid_value}"
     config.BASE_HEADERS['Cookie'] = cookie_values
+
+
+class GenerateResult:
+    def __init__(self):
+        # 将报告名称作为文件流
+        report_path = config.BASE_PATH + "/reports/report.html"
+        # 不能使用 with open ，否则init结束后就释放掉了
+        f = open(report_path, 'wb')
+        # 使用HTMLTestRunner实例化runner对象
+        self.runner = HTMLTestRunner_PY3.HTMLTestRunner(f)
+        # 存储结果列表
+        self.result_list = list()
+
+    def run_case(self, test_cases):
+        '''
+        使用实例化的runner对象运行测试用例，得到result结果，
+        将result添加到结果列表中
+        :param test_cases:
+        :return:
+        '''
+        result = self.runner.run(test_cases)
+        self.result_list.append(result)
+
+    def combine_result(self):
+        # 先获取第一个结果, 需要将 result_list的其他结果整合到第一个
+        fir_result = self.result_list[0]  # type:HTMLTestRunner_PY3._TestResult
+        for i in range(1, len(self.result_list)):
+            for res in self.result_list[i].result:  # _TestResult的类对象，以列表展示
+                if res[0] == 0:
+                    fir_result.addSuccess(res[1])  # 其中的方法
+                if res[0] == 1:
+                    fir_result.addSuccess(res[1], sys.exc_info())
+                if res[0] == 2:
+                    fir_result.addError(res[1], sys.exc_info())
+        return fir_result

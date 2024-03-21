@@ -72,6 +72,6 @@ class TestLogin_ByAutoTest(unittest.TestCase):
     def test_login(self, case_name, phone, password, response_code, message):
         response = self.login_api.login(phone=phone, password=password)
         logging.info(f"{case_name}的结果为: {response.json()}")
-        logging.info(f"登录的cookie为:{response.json()}")
+        # logging.info(f"登录的cookie为:{response.json()}")
         self.assertEquals(response_code, response.status_code)
         self.assertEquals(message, response.json().get("message"))
