@@ -6,6 +6,7 @@
 文件说明：
 
 """
+import json
 import logging
 from logging import handlers
 import os
@@ -46,3 +47,13 @@ def init_logging():
     logger.addHandler(fh)
     # 返回日志器
     return logger
+
+
+def read_json_data(file_name):
+    with open(file_name, mode='r', encoding="utf-8") as f:
+        json_data = json.load(f)
+        result_list = []
+        for case_data in json_data:  # type:dict
+            result_list.append(tuple(case_data.values()))  # 转换成元组数据是 parameterized 所需的
+
+        return result_list

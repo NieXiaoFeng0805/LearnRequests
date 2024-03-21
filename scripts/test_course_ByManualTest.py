@@ -3,6 +3,7 @@ import unittest
 import config
 from api.course_api import CourseAPI
 import logging
+from jsonpath import jsonpath
 
 
 class TestCourse(unittest.TestCase):
@@ -13,7 +14,11 @@ class TestCourse(unittest.TestCase):
         # 查询所有课程
         response = self.course_api.query_all_course(config.BASE_HEADERS)
         logging.info(f"查询的所有结果为：{response.json()}")
-
+        # 使用json断言判断
+        # 断言 id = 15 的courseName 是否 为 大数据云计算
+        result = jsonpath(response.json(), "$.content[?(@.id==15)].courseName")
+        # logging.info(f"断言 id = 15 的courseName 是否 为 大数据云计算:{result}")
+        self.assertEquals("大数据云计算", result[0])
         # 添加课程
         request_body = {"brief": "测试接口自动化测试", "courseDescriptionMarkDown": "", "courseImgUrl": "",
                         "courseListImg": "",
