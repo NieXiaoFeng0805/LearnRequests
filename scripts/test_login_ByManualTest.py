@@ -24,16 +24,17 @@ class TestLogin(unittest.TestCase):
         response = self.login_api.login("15321919666", "123456")
         # 使用logging 输出结果
         logging.info(f"登录结果为：{response.json()}")
-        self.assertEquals(200,response.status_code) #断言响应状态码
-        self.assertEquals("响应成功",response.json().get("message"))
+        logging.info(f"显示cookies：{response.cookies}")
+        self.assertEquals(200, response.status_code)  # 断言响应状态码
+        self.assertEquals("响应成功", response.json().get("message"))
 
     def test02_password_error(self):
         # 发送登录请求并接收结果
         response = self.login_api.login("15321919666", "12456")
         # 使用logging 输出结果
         logging.info(f"登录结果为：{response.json()}")
-        self.assertEquals(200,response.status_code) #断言响应状态码
-        self.assertEquals("用户名密码错误",response.json().get("message"))
+        self.assertEquals(200, response.status_code)  # 断言响应状态码
+        self.assertEquals("用户名密码错误", response.json().get("message"))
 
     def test03_phone_null(self):
         '''
@@ -44,8 +45,8 @@ class TestLogin(unittest.TestCase):
         response = self.login_api.login("", "123456")
         # 使用logging 输出结果
         logging.info(f"登录结果为：{response.json()}")
-        self.assertEquals(200,response.status_code) #断言响应状态码
-        self.assertEquals("用户名密码错误",response.json().get("message"))
+        self.assertEquals(200, response.status_code)  # 断言响应状态码
+        self.assertEquals("用户名密码错误", response.json().get("message"))
 
     def test04_password_null(self):
         '''
@@ -56,6 +57,5 @@ class TestLogin(unittest.TestCase):
         response = self.login_api.login("15321919666", "")
         # 使用logging 输出结果
         logging.info(f"登录结果为：{response.json()}")
-        self.assertEquals(200,response.status_code) #断言响应状态码
-        self.assertEquals("用户名密码错误",response.json().get("message"))
-
+        self.assertEquals(200, response.status_code)  # 断言响应状态码
+        self.assertEquals("用户名密码错误", response.json().get("message"))
