@@ -8,7 +8,7 @@
 - reports：报告(存放测试报告)
 - scripts：脚本文件(执行测试用例)
 - config.py：配置文件(存放公共配置项)
-- execute.py
+- execute.py :生成测试报告
 - utils.py : 工具文件,存放工具类、方法
 
 # 接口测试(使用Unittest时,要运行整个类才能获取parameterized中的用例[会少一个self参数],不支持运行单个用例; pytest可以)
