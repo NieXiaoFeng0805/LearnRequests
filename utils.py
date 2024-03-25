@@ -118,3 +118,27 @@ class GenerateResult:
                 if res[0] == 2:
                     fir_result.addError(res[1], sys.exc_info())
         return fir_result
+
+
+class MySQLManager:
+    def __init__(self, host=config.MYSQL_HOST, port=config.MYSQL_PORT, user=config.MYSQL_USER,
+                 passwod=config.MYSQL_PASSWORD, char_set=config.MYSQL_CHARSET, database=config.MYSQL_DATABASE):
+        '''
+        创建数据库连接
+        '''
+
+        import pymysql
+        self.coon = pymysql.connect(host=host,
+                                    port=port,
+                                    user=user,
+                                    password=passwod,
+                                    charset=char_set,
+                                    database=database)
+        self.cursor = self.coon.cursor()
+
+    def data_backup(self):
+        '''
+        进行数据备份(某张表)
+        :return:
+        '''
+

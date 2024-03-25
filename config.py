@@ -18,3 +18,11 @@ BASE_HEADERS = {
     "Authorization": "",
     "Cookie": ""
 }
+
+# 数据库配置
+MYSQL_HOST = "192.168.80.106"
+MYSQL_PORT = 3306
+MYSQL_DATABASE = 'ssm_lagou_edu'
+MYSQL_CHARSET = 'utf-8'
+MYSQL_USER = "root"
+MYSQL_PASSWORD = "Lagou@1234"
